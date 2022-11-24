@@ -8,7 +8,7 @@ There are three folders their files that can help you to start using SEER. The f
 
 Contact: jballesteros@uma.es
 
-## Contributors
+## Funding
 
 * European Union’s H2020 research and innovation programme (grant agreement DAEMON 101017109).
 * Spanish projects RTI2018-096701-B-C21, LEIA UMA18-FEDERJA-15, MEDEA RTI2018-099213-B-I00 and
