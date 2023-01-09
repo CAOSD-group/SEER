@@ -1,25 +1,16 @@
-from ast import For
-from frechetdist import frdist
-from sklearn import linear_model
-import sklearn
+import os
 import pandas as pd
-import scipy.stats as stats
 import numpy as np
 from sklearn.tree import DecisionTreeRegressor
 
-from sklearn import metrics
 from sklearn.metrics import mean_absolute_percentage_error
 from sklearn.model_selection import train_test_split
-from sklearn.utils import resample
 
-
-from threading import Thread, Lock, RLock
 from multiprocessing import Pool
 import time
 import math
 
 from scipy.optimize import curve_fit
-import matplotlib.pyplot as plt
 
 algo_config_options = [16, 19, 32, 11, 18, 54, 44, 39, 40, 42]
 algo_steps = [3, 3, 3, 3, 3, 3, 10, 20, 10, 20]
@@ -28,7 +19,7 @@ maxSamplingDistance = [5, 5, 5, 5, 5, 5, 25, 50, 25, 50]
 
 algo = ["x264", "lrzip", "Dune", "LLVM", "BerkeleyDBC",
         "Hipacc", "7z", "JavaGC", "Polly", "VP9"]
-numRuns = 100  # number of repetitions performed
+numRuns = 10  # number of repetitions performed
 
 stdFactor = 0
 
@@ -189,11 +180,11 @@ def unTest(dataTotalRandom, id):
         except:
             nti += algo_steps[id]
             finish = finish or (nti >= len(dataTotalRandom.index))
-        finally:
-            if (finish):
-                print("****FIN!"+ str(id) + "nti " + str(nti) + " " + str(round(max(algo_steps[id], nti*0.05))) + " ster" + str(dff) + str(ini) + " " + str(finish) + " " + str(finishInterFail) + " " + str(finishOld) + "  " + str(popt) + "  " + str(belowYY) + " CV " + str(coefficientVariation) + " encima " + str(aboveYY))      
-            else:
-                print("ID"+ str(id) + "nti " + str(nti) + " " + str(round(max(algo_steps[id], nti*0.05))) + " ster" + str(dff) + str(ini) + " " + str(finish) + " " + str(finishInterFail) + " " + str(finishOld) + "  " + str(popt) + "  " + str(belowYY) + "Slope " + str(coefficientVariation) + " encima " + str(aboveYY))      
+       # finally:
+           # if (finish):
+             #   print("****FIN!"+ str(id) + "nti " + str(nti) + " " + str(round(max(algo_steps[id], nti*0.05))) + " ster" + str(dff) + str(ini) + " " + str(finish) + " " + str(finishInterFail) + " " + str(finishOld) + "  " + str(popt) + "  " + str(belowYY) + " CV " + str(coefficientVariation) + " encima " + str(aboveYY))      
+           # else:
+             #   print("ID"+ str(id) + "nti " + str(nti) + " " + str(round(max(algo_steps[id], nti*0.05))) + " ster" + str(dff) + str(ini) + " " + str(finish) + " " + str(finishInterFail) + " " + str(finishOld) + "  " + str(popt) + "  " + str(belowYY) + "Slope " + str(coefficientVariation) + " encima " + str(aboveYY))      
 
     
     return [ntiOld,popt]
@@ -212,13 +203,16 @@ if __name__ == "__main__":
         
 
         start = time.time()
-        file = "dataProcessed"+str(algo[id])+".csv"
+
+        cur_path = os.path.dirname(__file__)
+
+        file = os.path.join(cur_path,"../DataSet/dataProcessed"+str(algo[id])+".csv")
 
         dataTotalRandom = pd.read_csv(file)
         
         
         
-        fileGround = "dataProcessedGroundTruthTreeNEGMEAN"+str(algo[id])+"MedidaError.csv" 
+        fileGround = os.path.join(cur_path,"../GroundTruth/dataProcessedGroundTruthTreeNEGMEAN"+str(algo[id])+"MedidaError.csv")
         dataGround= pd.read_csv(fileGround)
         
 
