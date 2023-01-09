@@ -110,8 +110,7 @@ def unTest(dataTotalRandom, id):
                 X_train, X_test, y_train, y_test = train_test_split(
                     XTotalRandom[1:nti].copy(), yTotalRandom[1:nti].copy(), test_size=0.3)
                     
-                X_train = X_train[1:nt]
-                y_train = y_train[1:nt]
+                X_train = X_train[1:nt];y_train = y_train[1:nt]
                 X_test = X_test[1:nt]
                 y_test = y_test[1:nt]
                
